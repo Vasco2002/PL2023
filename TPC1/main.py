@@ -1,4 +1,6 @@
 import csv
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Função que calcula a distribuição da doença por sexo
 def sexo(lista, counter):
@@ -10,6 +12,8 @@ def sexo(lista, counter):
     print("%Homens com doença: " + str(round((d[('M', 1)] / counter) * 100)) + "%")
     print("%Mulheres sem doença: " + str(round((d[('F', 0)] / counter) * 100)) + "%")
     print("%Mulheres com doença: " + str(round((d[('F', 1)] / counter) * 100)) + "%")
+
+    return d
 
 
 # Função que calcula a distribuição da doença por escalões etários
@@ -35,6 +39,8 @@ def idade(lista, counter):
             print("%[" + str(faixa[0]) + "-" + str(faixa[1]) + "] sem doença: " + str(round((d[faixa] / counter) * 100)) + "%")
         else:
             print("%[" + str(faixa[0]) + "-" + str(faixa[1]) + "] com doença: " + str(round((d[faixa] / counter) * 100)) + "%")
+
+    return d
 
 #Função que calcula a distribuição da doença por níveis de colesterol
 def colesterol(lista, counter):
@@ -62,6 +68,7 @@ def colesterol(lista, counter):
         else:
             print("%[" + str(faixa[0]) + "-" + str(faixa[1]) + "] com doença: " + str((d[faixa] / counter) * 100) + "%")
 
+    return d
 
 
 def main():
@@ -79,12 +86,23 @@ def main():
             lista.append(linha)
             print(linha)
 
-        sexo(lista, counter)
+        D1 = sexo(lista, counter)
 
-        idade(lista, counter)
+        plt.bar(range(len(D1)), list(D1.values()), align='center')
+        plt.xticks(range(len(D1)), list(D1.keys()))
+        plt.show()
 
-        colesterol(lista, counter)
+        D2 = idade(lista, counter)
 
+        plt.bar(range(len(D2)), list(D2.values()), align='center')
+        plt.xticks(range(len(D2)), list(D2.keys()))
+        plt.show()
+
+        D3 = colesterol(lista, counter)
+
+        plt.bar(range(len(D3)), list(D3.values()), align='center')
+        plt.xticks(range(len(D3)), list(D3.keys()))
+        plt.show()
 
 
 if __name__ == '__main__':
